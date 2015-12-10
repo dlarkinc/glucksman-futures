@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="'Question' + ${question.page}">Question</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet"
+	th:href="@{//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css}"
+	type="text/css" media="screen" />
+<link rel="stylesheet" th:href="@{css/style.css}" type="text/css"
+	media="screen" />
+<script type="text/javascript"
+	th:src="@{//code.jquery.com/jquery-2.1.1.min.js}"></script>
+<script type="text/javascript" th:src="@{js/jquery.slotmachine.min.js}"></script>
+</head>
+<body>
+
+<div id="whiteLine4"></div>
+	<div id="topLine"></div>
+	<div id="whiteLine3"></div>
+	<div id="pinkLine3"></div>
+	<div id="logo">
+		<img th:src="@{/img/logo_300.png}"/>
+	</div>
+	<div id="bottomLine"></div>
+	<div id="whiteLine1"></div>
+	<div id="pinkLine1"></div>
+	<div id="whiteLine2"></div>
+	<div id="pinkLine2"></div>
+	
+	<h2><span th:text="${question.question}">Question Text</span> <span th:text="'(' + ${question.page + '/' + count} + ')'">Page</span></h2>
+
+	<div class="content container" style="text-align: center">
+
+		<div class="row">
+			<div class="machineContainer">
+				<div id="machine1" class="slotMachine">
+					<div class="slot slot1A"></div>
+					<div class="slot slot2A"></div>
+					<div class="slot slot3A"></div>
+					<div class="slot slot4A"></div>
+					<div class="slot slot5A"></div>
+					<div class="slot slot6A"></div>
+					<div class="slot slot7A"></div>
+					<div class="slot slot8A"></div>
+					<div class="slot slot9A"></div>
+					<div class="slot slot10A"></div>
+					<div class="slot slot11A"></div>
+				</div>
+
+				<div id="machine2" class="slotMachine">
+					<div class="slot slot1B"></div>
+					<div class="slot slot2B"></div>
+					<div class="slot slot3B"></div>
+					<div class="slot slot4B"></div>
+					<div class="slot slot5B"></div>
+					<div class="slot slot6B"></div>
+					<div class="slot slot7B"></div>
+					<div class="slot slot8B"></div>
+					<div class="slot slot9B"></div>
+					<div class="slot slot10B"></div>
+					<div class="slot slot11B"></div>
+				</div>
+
+				<div id="machine3" class="slotMachine">
+					<div class="slot slot1C"></div>
+					<div class="slot slot2C"></div>
+					<div class="slot slot3C"></div>
+					<div class="slot slot4C"></div>
+					<div class="slot slot5C"></div>
+					<div class="slot slot6C"></div>
+					<div class="slot slot7C"></div>
+					<div class="slot slot8C"></div>
+					<div class="slot slot9C"></div>
+					<div class="slot slot10C"></div>
+					<div class="slot slot11C"></div>
+				</div>
+
+				<div id="machine1Result" class="col-xs-4 machineResult"></div>
+				<div id="machine2Result" class="col-xs-4 machineResult"></div>
+				<div id="machine3Result" class="col-xs-4 machineResult"></div>
+				
+			</div>
+	
+		</div>
+
+	</div>
+
+		<!-- 
+			<div class="content text-center">
+				<a th:href="@{/__${question.page + 1}__}">
+					<div id="slotMachineButton1" class="slotMachineButton">NEXT</div>
+				</a>
+			</div>
+			 -->
+	
+				
+	<div id="button">
+		 <a class="btn" th:href="@{/__${question.page != count} ? ${question.page + 1} : 'thankyou'__}">NEXT ></a>
+	</div>
+	
+				<div id="bottomLine"></div>
+				
+	
+				
+	<div id="whiteLine5"></div>
+	<div id="pinkLine5"></div>
+	<div id="whiteLine6"></div>
+	<div id="pinkLine6"></div>
+	<div id="whiteLine7"></div>
+	<div id="pinkLine7"></div>	
+	 
+	<script type="text/javascript" th:inline="javascript">
+			$(document).ready(function(){
+				var machine1 = $("#machine1").slotMachine({
+					active	: 0,
+					delay	: 200,
+				});
+				
+				var machine2 = $("#machine2").slotMachine({
+					active	: 1,
+					delay	: 400
+				});
+				
+				var machine3 = $("#machine3").slotMachine({
+					active	: 2,
+					delay	: 600
+				});
+				
+				machine1.setRandomize(function(){
+					return [[${question.page - 1}]];
+				});
+				
+				machine2.setRandomize(function(){
+					return [[${question.page - 1}]];
+				});
+				
+				machine3.setRandomize(function(){
+					return [[${question.page - 1}]];
+				});
+				
+				machine1.shuffle(5, onComplete);
+				machine2.shuffle(5, onComplete);
+				machine3.shuffle(5, onComplete);
+				
+				function onComplete(active){
+					switch(this.element[0].id){
+						case 'machine1':
+							$("#machine1Result").text([[${question.desc1}]]);
+							break;
+						case 'machine2':
+							$("#machine2Result").text([[${question.desc2}]]);
+							break;
+						case 'machine3':
+							$("#machine3Result").text([[${question.desc3}]]);
+							break;
+					}
+				}
+			});
+		</script>
+		
+</body>
+</html>

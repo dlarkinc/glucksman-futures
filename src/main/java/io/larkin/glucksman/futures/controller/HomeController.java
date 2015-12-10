@@ -22,13 +22,25 @@ public class HomeController {
 	JdbcTemplate template;
 
 	@RequestMapping(value = "/{page}", method = RequestMethod.GET)
-	public String home(@PathVariable int page, Model model) {
+	public String questionPage(@PathVariable int page, Model model) {
 		
 		Question q = (Question)template.queryForObject("SELECT * FROM questions WHERE page = ?", new QuestionMapper(), page);
+		int count = template.queryForObject("SELECT COUNT(*) FROM questions", Integer.class);
 		
 		model.addAttribute("question", q);
+		model.addAttribute("count", count);
 		
-		return "index";
+		return "question";
+	}
+	
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String home() {
+		return "home";
+	}
+	
+	@RequestMapping(value = "/thankyou", method = RequestMethod.GET)
+	public String thankyou() {
+		return "thankyou";
 	}
 	
 }

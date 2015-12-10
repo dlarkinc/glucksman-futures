@@ -15,9 +15,6 @@ public class QuestionMapper implements RowMapper<Question> {
 		Question question = new Question();
 		question.setPage(rs.getInt("page"));
 		question.setQuestion(rs.getString("question"));
-		question.setSlot1(rs.getString("slot1"));
-		question.setSlot2(rs.getString("slot2"));
-		question.setSlot3(rs.getString("slot3"));
 		question.setDesc1(rs.getString("desc1"));
 		question.setDesc2(rs.getString("desc2"));
 		question.setDesc3(rs.getString("desc3"));
